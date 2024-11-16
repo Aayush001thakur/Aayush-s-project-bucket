@@ -4,8 +4,9 @@ import { useState } from "react";
 export default function CreateStudents(){
     const [formData, setFormData] = useState({
         name: '',
+        class:'',
         roll: '',
-        password: '',
+        username: '',
       });
       const handleChange = (e) => {
         const { name, value } = e.target;
@@ -27,15 +28,15 @@ export default function CreateStudents(){
             className="text-white font-extrabold font-serif text-5xl"
             >Welcome To Student Section</h1>
         <form onSubmit={handleSubmit}
-        className=" flex items-center">
-      <div className="flex flex-col border-2 border-black  bg-blue-200  h-full items-center m-10 w-52 rounded-lg px-4" >
+        className=" flex items-center p-2">
+      <div className="flex flex-col border-2 border-black  bg-blue-200  h-full items-center m-10 w-52 rounded-lg" >
         <h1
         className="font-bold  text-lg  font-serif rounded-sm"
         >Add New Student </h1>
         <br />
         <label className="font-extrabold">Name:</label>
         <input 
-        className="border-2 border-gray-600 rounded-md px-2"
+        className="border-2 border-gray-600 rounded-md"
           type="text"
           name="name"
           placeholder="Enter name"
@@ -46,30 +47,30 @@ export default function CreateStudents(){
         className="mt-3 pt-2 font-serif font-extrabold"
         >Roll Number:</label>
         <input
-        className="border-2 border-gray-600 rounded-md px-2"
-          type="number"
+        className="border-2 border-gray-600 rounded-md"
+          type="text"
           name="rollno"
-          placeholder="Roll Number"
+          placeholder="1"
           required
         />
         <label
-        className="mt-3 pt-2 font-serif font-extrabold"
+        className="mt-3 pt-2  font-serif font-extrabold"
         >Class:</label>
-        <input
-        className="border-2 border-gray-600 rounded-md px-2"
-          type=""
-          name="rollno"
+       <input
+        className="border-2 border-gray-600 rounded-md"
+          type="text"
+          name="class"
           placeholder="10th"
           required
         />
         <label
         className="mt-3 pt-2 font-serif font-extrabold"
-        >Password:</label>
+        >Username:</label>
         <input
-        className="border-2 border-gray-600 rounded-md px-2"
-          type="password"
-          name="pass"
-          placeholder="Password"
+        className="border-2 border-gray-600 rounded-md"
+          type="text"
+          name="Username"
+          placeholder="Aayush@123"
           required
         />
         <button
@@ -84,11 +85,11 @@ export default function CreateStudents(){
             </div>
         </div>
         {/* TABLE START */}
-        <div className="relative overflow-x-auto mt-0">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <div className="relative overflow-x-auto pb-4 bg-gray-500 px-7 ">
+      <table className="w-full text-sm text-left rtl:text-right border rounded- text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-3 ">
               Student Name <button className=""> 🔽 </button>
             </th>
             <th scope="col" className="px-6 py-3">
@@ -108,29 +109,11 @@ export default function CreateStudents(){
         <tbody>
           <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Aayush Kumar
+              {formData.name}
             </th>
-            <td className="px-6 py-4"> 12th Class</td>
-            <td className="px-6 py-4">27</td>
-            <td className="px-6 py-4">Aayush@2501</td>
-            <button><td className="px-6 py-4 text-blue-300">Edit</td></button>
-          </tr>
-          <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Manish
-            </th>
-            <td className="px-6 py-4">11th Class</td>
-            <td className="px-6 py-4">28</td>
-            <td className="px-6 py-4">Manish@123</td>
-            <button><td className="px-6 py-4 text-blue-300">Edit</td></button>
-          </tr>
-          <tr className="bg-white dark:bg-gray-800">
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Akshay Kumar
-            </th>
-            <td className="px-6 py-4">10th Class</td>
-            <td className="px-6 py-4">29</td>
-            <td className="px-6 py-4">Akshay@123</td>
+            <td className="px-6 py-4">{formData.class}</td>
+            <td className="px-6 py-4">{formData.roll}</td>
+            <td className="px-6 py-4">{formData.username}</td>
             <button><td className="px-6 py-4 text-blue-300">Edit</td></button>
           </tr>
         </tbody>

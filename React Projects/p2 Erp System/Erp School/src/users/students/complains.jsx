@@ -39,7 +39,7 @@ export default function StudentComplain() {
               placeholder=" "
               className="text-white font-serif text-lg items-center justify-center border bg-gray-400 rounded-lg placeholder-white mb-2"
             />
-            For:
+            Against:
             <input
               type="text"
               placeholder=""

@@ -5,7 +5,8 @@ export default function AddSubject() {
     const [formData, setFormData] = useState({
         subjectName: '',
         class: '',
-        subjectCode: ''
+        subjectCode: '',
+        subjectType: ''
     });
 
     const [isMousedOver , SetMousedOver] = useState(false);
@@ -29,21 +30,21 @@ export default function AddSubject() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Form submitted:", formData);
-        setFormData({ subjectName: '', class: '', subjectCode: '' });
+        setFormData({ subjectName: '', class: '', subjectCode: '' ,subjectType: ''});
         // Here, you can perform any actions you need with the formData
     };
 
     return (
         <>
             <Nav />
-            <div className="bg-gray-500 w-full h-full p-10 flex flex-col items-center">
+            <div className="bg-gray-500 w-full h-full p-10 pb-2 flex flex-col items-center">
                 <label className="font-serif font-extrabold text-3xl text-white">
                     Create Your Subject Here !!
                 </label>
                 <div>
                     <form
                         onSubmit={handleSubmit}
-                        className="mt-3 flex flex-col bg-blue-200 gap-3 border-4 border-black rounded-md p-5"
+                        className="mt-3 flex flex-col bg-blue-200 p-2 gap-3 border-4 border-black rounded-md"
                     >
                         <label className="font-serif text-3xl font-extrabold">Subject Name</label>
                         <input
@@ -78,6 +79,14 @@ export default function AddSubject() {
                             value={formData.subjectCode}
                             onChange={handleChange}
                         />
+                        <label className="font-serif text-2xl">Subject Type</label>
+                        <input
+                            className="bg-black text-gray-100 border rounded-md items-center"
+                            name="subjectCode"
+                            placeholder="theory"
+                            value={formData.subjectType}
+                            onChange={handleChange}
+                        />
                         <button
                             type="submit"
                             style={{backgroundColor: isMousedOver ?"black": "white" , color :isMousedOver ?"white": "black"}}
@@ -93,48 +102,32 @@ export default function AddSubject() {
 
                 </div>
             </div>
-            <div className="relative overflow-x-auto mt-0">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <div className="relative overflow-x-auto pb-6  px-4 pt-0 bg-gray-500">
+      <table className="w-full text-sm text-left rtl:text-right  rounded-sm  text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-3 text-gray-100">
               Subject Name
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-3 text-gray-100">
               Class
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-3 text-gray-100">
               Code
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-3 text-gray-100">
               Category
             </th>
           </tr>
         </thead>
         <tbody>
           <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Mathematics
+            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-400">
+             {formData.subjectName}
             </th>
-            <td className="px-6 py-4"> 12th Class</td>
-            <td className="px-6 py-4">27</td>
-            <td className="px-6 py-4">Theory</td>
-          </tr>
-          <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              English
-            </th>
-            <td className="px-6 py-4">11th Class</td>
-            <td className="px-6 py-4">28</td>
-            <td className="px-6 py-4">Theory</td>
-          </tr>
-          <tr className="bg-white dark:bg-gray-800">
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Physics
-            </th>
-            <td className="px-6 py-4">10th Class</td>
-            <td className="px-6 py-4">29</td>
-            <td className="px-6 py-4">Theory</td>
+            <td className="px-6 py-4">{formData.class}</td>
+            <td className="px-6 py-4">{formData.subjectCode}</td>
+            <td className="px-6 py-4"></td>
           </tr>
         </tbody>
       </table>
