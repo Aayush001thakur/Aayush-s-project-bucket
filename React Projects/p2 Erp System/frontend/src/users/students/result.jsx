@@ -1,21 +1,8 @@
 
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Sidebar from "./Nav2";
 
 export default function Studentresult() {
-  const [jokes, setJokes] = useState([]);
-
-  useEffect(() =>{
-    axios.get('/api/jokes')
-    .then(
-      (response) =>{
-        setJokes(response.data)
-      }
-    ).catch((error) =>{
-      console.log(error)
-    })
-  })
   return (
     <>
       <div className="flex flex-row bg-gray-500">
