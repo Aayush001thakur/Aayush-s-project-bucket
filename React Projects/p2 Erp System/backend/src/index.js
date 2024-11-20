@@ -1,36 +1,25 @@
+import dotenv from "dotenv";
 import express from "express";
+import connectDB from "../src/db/index.js"; // Ensure this function is implemented correctly
+
+// Load environment variables
+dotenv.config({ path: "./.env" });
+
 const app = express();
 const port = process.env.PORT || 4000;
 
-const jokes = [{
-    id: 1,
-    "title": "A Joke",
-    "content" : "This is a joke"
-},
-{
-    id: 2,
-    "title": "Two Joke",
-    "content" : "This is another joke"
-},
-{
-    id: 3,
-    "title": "Thirds",
-    "content" : "This is 3 joke"
-}
+// Middleware
+app.use(express.json());
 
-];
+// Connect to the database
+connectDB();
 
+// Define routes
+app.get("/", (req, res) => {
+  res.send("Welcome to the School ERP backend!");
+});
 
-app.get("/", (req, res) =>{
-    res.send("Hello , World");
-})
-
-app.get('/api/jokes', (req, res) =>{
-   
-    res.send(jokes);
-})
-
-console.log(jokes);
-app.listen(port, () =>{
-    console.log(`Server running on port ${port} `)
-})
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
