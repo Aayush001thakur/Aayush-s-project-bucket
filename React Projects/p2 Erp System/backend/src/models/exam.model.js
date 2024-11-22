@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 const examSchema = new mongoose.Schema({
     name: { type: String, required: true }, // Example: "Mid-Term Exam"
     class: { type: mongoose.Schema.Types.ObjectId, ref: "Class", required: true },

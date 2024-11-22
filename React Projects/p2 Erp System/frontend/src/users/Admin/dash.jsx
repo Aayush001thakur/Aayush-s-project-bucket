@@ -1,8 +1,22 @@
-   import AnalticCards from "./Analytic";
+   import { data } from "autoprefixer";
+import AnalticCards from "./Analytic";
    import Nav from "./NavBar";
 
    export default function Dash(){
-      const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}"
+     const practice = async () => {
+      try{
+         const details = await fetch('https://official-joke-api.appspot.com/random_joke');
+         const response = await details.json();
+        const meta = (response.setup);
+      }catch(error){
+         console.log(error);
+         
+      }
+
+
+     }
+
+     practice()
       return(
       <>
       <Nav />

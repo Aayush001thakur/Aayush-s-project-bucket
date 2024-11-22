@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 const attendanceSchema = new mongoose.Schema({
     date: { type: Date, required: true },
     class: { type: mongoose.Schema.Types.ObjectId, ref: "Class", required: true },

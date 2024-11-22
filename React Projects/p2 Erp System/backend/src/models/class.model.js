@@ -1,3 +1,5 @@
+import { response } from "express";
+import mongoose from "mongoose";
 const classSchema = new mongoose.Schema({
     name: { type: String, required: true }, // Example: "10th Grade"
     section: { type: String, required: true }, // Example: "A"
@@ -5,5 +7,5 @@ const classSchema = new mongoose.Schema({
     students: [{ type: mongoose.Schema.Types.ObjectId, ref: "Student" }],
   });
   
-  export const Class = mongoose.model("Class", classSchema);
-  
+  const grade = mongoose.model("Class", classSchema);
+   export default grade;
