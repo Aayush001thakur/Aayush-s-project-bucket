@@ -1,5 +1,4 @@
 emailjs.init("LYoiofclqsraD1Y_G");
-
 document.getElementById("sendMessageBtn").addEventListener("click", function (event) {
   event.preventDefault();
 
@@ -8,7 +7,6 @@ document.getElementById("sendMessageBtn").addEventListener("click", function (ev
   const subject = document.getElementById("subject");
   const message = document.getElementById("message");
 
-  // Validate fields
   if (!name.value || !email.value || !subject.value || !message.value) {
     alert("Please fill out all fields.");
     return;
@@ -50,3 +48,15 @@ document.getElementById("sendMessageBtn").addEventListener("click", function (ev
       button.textContent = "Send Message";
     });
 });
+
+
+document.getElementById('downloadCv').addEventListener('click', function(event) {
+  event.preventDefault();
+
+  const link = document.createElement('a');
+  link.href = './image/Resume.pdf';
+  link.download = 'Resume.pdf'; 
+  link.click();
+});
+
+
