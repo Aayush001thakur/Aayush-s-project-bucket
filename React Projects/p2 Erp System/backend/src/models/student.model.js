@@ -22,9 +22,12 @@ const studentSchema = new mongoose.Schema({
 
 // Pre-save hook to hash the password
 studentSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10); // Corrected usage
-  next();
+  try {
+    this.password = await bcrypt.hash(this.password, 10); // Hash with 10 salt rounds
+    next();
+  } catch (err) {
+    next(err); // Pass any errors to the next middleware
+  }
 });
 
 // Method to compare passwords
