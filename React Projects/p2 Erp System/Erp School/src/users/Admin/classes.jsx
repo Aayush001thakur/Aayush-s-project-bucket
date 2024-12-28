@@ -3,73 +3,121 @@ import Nav from "./NavBar";
 import SearchForm from "../../searchBar";
 
 export default function Class() {
-  const [inputValue, setInputValue] = useState(""); // State for input value
-  const [classList, setClassList] = useState([]); // State for list of classes
-
-  // Handle input change
+  const [inputValue, setInputValue] = useState(""); // State for input value  // Handle input change
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
+// Dialog Box
+  const [isOpen, setIsOpen] = useState(false);
 
-  // Handle button click
-  const handleButtonClick = () => {
-    if (inputValue.trim() !== "") {
-      // Check if input is not empty
-      setClassList([...classList, inputValue]); // Add input value to the list
-      setInputValue(""); // Clear input after adding to list
-    }
-  };
+  const openDialog = () => setIsOpen(true);
+  const closeDialog = () => setIsOpen(false);
+  // set form data
 
+  // set table data
   return (
     <>
-      <div>
-        <Nav />
-      </div>
-      
-      <div className="bg-gray-200 p-5">
-        <SearchForm />
-        <h1 className="font-extrabold ml-2 mt- bg-slate-200 text-3xl font-serif p-2 items-center">
-          Manage Your All Classes Here!
-        </h1>
-        <input
-          placeholder="  Enter Class Name"
-          value={inputValue} // Bind input value to state
-          onChange={handleInputChange}
-          className="border border-blue-950 ml-2 rounded-full items-center"
-        />
-        <button
-          onClick={handleButtonClick}
-          className="bg-gray-800 rounded-md border border-black text-center text-white mt-5 p-1 ml-5"
-        >
-          Create Class
-        </button>
-      </div>
+     <div className="flex flex-col m-2">
+      <div className=" flex flex-row  m-2 bg-gray-500 w-full border rounded-lg border-gray-400 ">
+                <h1 className="font-bold m-3 h-24 text-3xl w-full text-white shadow-red-800   rounded-md">Manage Classes</h1>
+                <button
+                onClick={openDialog}
+                className= " bg-zinc-900 m-2  h-full w-36 px-1 border-2 align-baseline  text-white rounded-md">+ Create New 
+                </button>
+                {isOpen && (
+          <div className="fixed inset-0 flex items-center justify-center border-2 border-slate-400 bg-black bg-opacity-50">
+            <div className=" p-2 rounded shadow-lg bg-zinc-800 max-w-md w-72">
+              <h2 className="text-xl font-bold mb-4 text-white">Create Employee</h2>
+              <div className=" flex felx-col px-5  border-2 text-center  border-gray-500 bg-zinc-600 rounded-lg w-full h-full ">
+                  <form action="">
+                    <div className="flex flex-col  justify-between w-fit  p-5">
+                    <label htmlFor="" className="border-gray-700 font-bold text-xl ">
+                      Class
+                    </label>
+                    <input type="text" className="border-2 border-zinc-700  rounded-lg" />
+                    </div>
+                    <div className="flex flex-col justify-between w-fit p-5">
+                    <label htmlFor="" className="border-gray-700 font-bold text-xl ">
+                      Section
+                    </label>
+                    <input type="text" className="border-2 border-zinc-700  rounded-lg" />
+                    </div>
+                    <div className="flex flex-col justify-between w-fit p-5">
+                    <label htmlFor="" className="border-gray-700 font-bold text-xl ">
+                      Class Teacher
+                    </label>
+                    <input type="text" className="border-2 border-zinc-700  rounded-lg" />
+                    </div>
+                  </form>
+              </div>
+              <div className="flex flex-row justify-between">
+              <button 
+              className="m-3 border-green-800 bg-green-500 text-white font-bold text-lg rounded-md px-2">Save</button>
+              <button 
+              onClick={closeDialog}
+              className="m-3 border-red-800 bg-red-500 text-white font-bold text-lg rounded-md px-2">close</button>
+              </div>
+            </div>
+          </div>
+        )}
+                </div>
       <div className="mt-5">
-        <ul>
-          {classList.map((classItem, index) => (
-            <li
-              key={index}
-              className="ml-2 mb-1 bg-gray-700 text-white p-2 rounded-lg flex flex-row mr-20"
-            >
-              {classItem}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6 ml-10 "
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"
-                />
-              </svg>
-            </li>
-          ))}
-        </ul>
+      <form action="">
+                <div className=" flex flex-row bg-gray-500 rounded-md mb-6  p-3 justify-between  border-2 ">
+                    
+                    <div className=" ">
+                    <label htmlFor="" className=" font-semibold  text-black text-xl">Class: </label>
+                    <input type="number" className=" bolder-1 border-gray-500 rounded-md" />
+                    </div>
+                    <div className=" ">
+                    <label htmlFor="" className=" font-semibold  text-black text-xl">Class Teacher: </label>
+                    <input type="number" className=" bolder-1 border-gray-500 rounded-md" />
+                    </div>
+                    <div className=" space-x-2">
+                    <label className="font-semibold  text-black text-xl">Section: </label>
+                    <input type="text" className=" text-center bolder-1 border-gray-500 rounded-md" />    
+                    </div>
+                    <div>
+                    <button className="border  bg-black m-2 w-28 p-1 text-white rounded-md  font-bold">Get Details</button>
+                    </div>
+                    </div>
+                </form>
+
       </div>
+      <div className="w-full   ">
+  <table className="table-auto  border-collapse border rounded-lg  w-full bg-white">
+    <thead className="bg-gray-200">
+      <tr>
+        <th className="border border-gray-300 px-4 py-2">Class Teacher</th>
+        <th className="border border-gray-300 px-4 py-2">Section</th>
+        <th className="border border-gray-300 px-4 py-2">Class Code</th>
+        <th className="border border-gray-300 px-4 py-2">Fee</th>
+        <th className="border border-gray-300 px-4 py-2">Actions</th>
+        <th className="border border-gray-300 px-4 py-2">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="hover:bg-gray-100 text-bold ">
+        <td className="border border-gray-300 px-4 py-2">John Doe</td>
+        <td className="border border-gray-300 px-4 py-2">A</td>
+        <td className="border border-gray-300 px-4 py-2">
+          <span className=" py-1 px-2 rounded-full text-xs">12</span>
+        </td>
+        
+        <td className="border border-gray-300 px-4 py-2"> 1200</td>
+        <td className="border border-gray-300 px-6 py-2">
+          <button className="text-blue-500 hover:underline">Edit</button>
+          <button className="text-red-500 hover:underline ml-4">Delete</button>
+        </td>
+        <td className="border border-gray-300 px-4 py-2">
+          <span className="bg-green-200 text-green-600 py-1 px-2 rounded-full text-xs">Active</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+      </div>
+     
     </>
   );
 }

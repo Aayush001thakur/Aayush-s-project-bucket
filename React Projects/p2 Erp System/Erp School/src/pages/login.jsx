@@ -1,8 +1,40 @@
 import { Button } from "@headlessui/react";
 import Banner from "./Banner";
 import { HomeIcon, UserIcon } from "@heroicons/react/24/outline";
-
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export default function LoginPage() {
+  const [rollNumber, setRollNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
+
+  const LoginUser = async (e) => {
+    e.preventDefault(); // Prevent form from refreshing the page
+    try {
+      const response = await axios.post('http://localhost:4000/api/v1/user/login', {
+        rollNumber,
+        password,
+      });
+    
+      if (response.status == 200) {
+        setSuccessMessage('Login successful!');
+        
+        setError('');
+        console.log('Redirecting to /student/dash');
+        navigate('/student/dash');
+      } else {
+        setError(response.data.message || 'Login failed!');
+      }
+    } catch (err) {
+      console.error('Error:', err.response || err);
+      setError(err.response?.data?.message || err.message || 'Something went wrong');
+    }
+    
+  };
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-blue-300">
@@ -13,7 +45,7 @@ export default function LoginPage() {
             className="mx-auto h-24 w-auto"
           />
           <h2 className="mt-5 text-center text-2xl/9 font-bold tracking-tight text-gray-800">
-            Admin Login
+            Student Login
           </h2>
         </div>
         <div className="flex flex-row justify-center mt-5">
@@ -33,19 +65,19 @@ export default function LoginPage() {
           </svg>
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form onSubmit={LoginUser} method="POST" className="space-y-6">
+            {/* Roll Number */}
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm/6 font-medium text-gray-900"
-              >
-                Email
+              <label htmlFor="rollNumber" className="block text-sm/6 font-medium text-gray-900">
+                Roll Number
               </label>
               <div className="mt-2">
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
+                  id="rollNumber"
+                  name="rollNumber"
+                  type="text"
+                  value={rollNumber}
+                  onChange={(e) => setRollNumber(e.target.value)}
                   required
                   autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
@@ -53,19 +85,14 @@ export default function LoginPage() {
               </div>
             </div>
 
+            {/* Password */}
             <div>
               <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm/6 font-medium text-gray-900"
-                >
+                <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
                   Password
                 </label>
                 <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
+                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                     Forgot password?
                   </a>
                 </div>
@@ -75,6 +102,8 @@ export default function LoginPage() {
                   id="password"
                   name="password"
                   type="password"
+                  value={password} // Ensure the value is controlled
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   autoComplete="current-password"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
@@ -82,6 +111,11 @@ export default function LoginPage() {
               </div>
             </div>
 
+            {/* Error and Success Messages */}
+            {error && <p className="text-red-500 text-center">{error}</p>}
+            {successMessage && <p className="text-green-500 text-center">{successMessage}</p>}
+
+            {/* Submit Button */}
             <div>
               <button
                 type="submit"
@@ -94,10 +128,7 @@ export default function LoginPage() {
 
           <p className="mt-10 text-center text-sm/6 text-gray-500">
             Not a member?{" "}
-            <a
-              href="#"
-              className="font-semibold text-indigo-600 hover:text-indigo-500"
-            >
+            <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
               Select Role
             </a>
           </p>

@@ -17,7 +17,6 @@ function ToolbarButton({ children, ariaLabel }) {
 function FormComponent() {
   return (
     <>
-    <Nav />
     <div
     className="bg-slate-700  w-full h-24 flex items-center text-white font-serif text-3xl font-extrabold " 
     >

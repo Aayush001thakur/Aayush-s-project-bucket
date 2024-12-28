@@ -62,8 +62,7 @@ return res.status(201).json(
 
 })  
 
-const loginUser = asyncHandler(async (req, res) =>{
-    console.log(req.body); 
+const loginUser = asyncHandler(async (req, res) =>{ 
     // take input from user via a form
     // validate if input is correct 
     // Validate input with stored data in db
@@ -86,7 +85,6 @@ console.log(password);
     const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(Student._id)
 
     const LoggedInUser = await Student.findById(student._id).select("-password -refreshToken")
-    console.log(LoggedInUser);
     const option = {
         httpOnly: true,
         secure: true
@@ -105,16 +103,16 @@ console.log(password);
 
 const logoutUser = asyncHandler(async (req, res) => {
     // Update the user's refreshToken in the database
-    console.log("req.student:", req.student);
     await Student.findByIdAndUpdate(req.student._id, { $set: { refreshToken: undefined } });
     // Clear cookies
+    console.log(res.data);
     const options = {
         httpOnly: true,
-        secure: true, // Ensure secure is true for production
+        secure: true, 
     };
 
     return res
-        .status(200) // Corrected 'statur' to 'status'
+        .status(200)
         .clearCookie("accessToken", options)
         .clearCookie("refreshToken", options)
         .json(new Apiresponse(200, {}, "User Logged Out"));

@@ -10,7 +10,10 @@ dotenv.config({ path: "./.env" });
 
 const app = express();
 const port = process.env.PORT || 4000;
-
+const corsOptions = {
+  origin: 'http://localhost:5173', // Replace with your frontend URL
+  credentials: true,              // Allow cookies and credentials
+};
 
 
 // Middleware
@@ -18,7 +21,7 @@ app.use(express.json({limit: "16kb"}));
 app.use(express.urlencoded({extended: true, limit: "16kb"}));
 app.use(express.static("public"))
 app.use(cookieParser())
-app.use(cors())
+app.use(cors(corsOptions));
 
 app.use("/api/v1/user", UserRouter)
 

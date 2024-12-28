@@ -1,13 +1,14 @@
 // Sidebar.js
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function Sidebar() {
     const [isOpen, setIsOpen] = useState(true);
-
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
     };
+    const navigate = useNavigate();
 
     return (
         <div className="flex">
@@ -121,12 +122,13 @@ export default function Sidebar() {
                     </li>
                     <li>
                         <Link
-                            to="/student/profile"
+                           
                             className="flex items-center gap-x-4 p-2 text-gray-300 hover:bg-gray-700 rounded-md"
                         >
                             <span><img
                             className="w-7 h-7 border rounded-full" src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg" /></span>
-                            <span className={`${!isOpen && "hidden"} origin-left duration-200`}>
+                            <span 
+                            className={`${!isOpen && "hidden"} origin-left duration-200`}>
                                 Sing out
                             </span>
                         </Link>

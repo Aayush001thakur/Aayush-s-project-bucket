@@ -22,103 +22,68 @@ export default function CreateStudents(){
       };
     return (
         <>
-        <Nav />
-        <div className="bg-gray-500  w-full h-full p-10 flex flex-col items-center">
-            <h1
-            className="text-white font-extrabold font-serif text-5xl"
-            >Welcome To Student Section</h1>
-        <form onSubmit={handleSubmit}
-        className=" flex items-center p-2">
-      <div className="flex flex-col border-2 border-black  bg-blue-200  h-full items-center m-10 w-52 rounded-lg" >
-        <h1
-        className="font-bold  text-lg  font-serif rounded-sm"
-        >Add New Student </h1>
-        <br />
-        <label className="font-extrabold">Name:</label>
-        <input 
-        className="border-2 border-gray-600 rounded-md"
-          type="text"
-          name="name"
-          placeholder="Enter name"
-          onChange={handleChange}
-          required
-        />
-        <label
-        className="mt-3 pt-2 font-serif font-extrabold"
-        >Roll Number:</label>
-        <input
-        className="border-2 border-gray-600 rounded-md"
-          type="text"
-          name="rollno"
-          placeholder="1"
-          required
-        />
-        <label
-        className="mt-3 pt-2  font-serif font-extrabold"
-        >Class:</label>
-       <input
-        className="border-2 border-gray-600 rounded-md"
-          type="text"
-          name="class"
-          placeholder="10th"
-          required
-        />
-        <label
-        className="mt-3 pt-2 font-serif font-extrabold"
-        >Username:</label>
-        <input
-        className="border-2 border-gray-600 rounded-md"
-          type="text"
-          name="Username"
-          placeholder="Aayush@123"
-          required
-        />
-        <button
-        className="border border-solid bg-black text-white rounded-md m-5 px-7 font-serif"
-        >Add</button>
-        </div>
-        </form>
-        <div 
-            className="mt-2 w-full"
-            >
-            <SearchForm />
+        <div className=" flex flex-row  m-2 bg-gray-500 w-full border rounded-lg border-gray-400 ">
+                <h1 className="font-bold m-3 h-24 text-3xl w-full text-white shadow-red-800   rounded-md">Manage Students</h1>
+                <button className= " bg-zinc-900 m-2  h-full w-36 px-1 border-2 align-baseline  text-white rounded-md">+ Create New 
+                </button>
+                </div>
+                <div className="flex flex-col mt-4 justify-center items-center  rounded-sm  border-gray-300 w-full h-fit p-1 ">
+                <form action="">
+                <div className=" flex flex-row bg-gray-500 rounded-md mb-6  p-3 justify-between  border-2 ">
+                    
+                <div className=" space-x-4 mx-2">
+                    <label className="font-semibold  text-black text-xl">Session : </label>
+                    {/* <input type="text" className=" bolder-1 border-gray-500 rounded-md" />     */}
+                    <select name="" id="" className=" bolder-1 text-black font-bold px-6 border-gray-500 rounded-md">
+                      <option value="" >2020-21</option>
+                      <option value="selected">2021-22</option>
+                      <option value="">2022-23</option>
+                    </select>
+                    </div>
+                    <div className=" space-x-2">
+                    <label className="font-semibold  text-black text-xl">Class: </label>
+                    <input type="text" className=" text-center bolder-1 border-gray-500 rounded-md" />    
+                    </div>
+                    <div className="space-x-2">
+                    <label className="font-semibold  text-black text-xl">Section : </label>
+                    <input type="text" className=" bolder-1 border-gray-500 rounded-md" />    
+                    </div>
+                    <div>
+                    <button className="border m-5 bg-black mt-1 w-28 p-1 text-white rounded-md  font-bold">Get Data</button>
+                    </div>
+                    </div>
+                </form>
+ <div className="w-full   ">
+  <table className="table-auto  border-collapse border rounded-lg  w-full bg-white">
+    <thead className="bg-gray-200">
+      <tr>
+        <th className="border border-gray-300 px-4 py-2">Name</th>
+        <th className="border border-gray-300 px-4 py-2">Roll No</th>
+        <th className="border border-gray-300 px-4 py-2">Reg No</th>
+        <th className="border border-gray-300 px-4 py-2">Father Name</th>
+        <th className="border border-gray-300 px-4 py-2">Mother Name</th>
+        <th className="border border-gray-300 px-4 py-2">Action</th>
+      </tr>
+      
+    </thead>
+    <tbody>
+      <tr className="hover:bg-gray-100">
+        <td className="border border-gray-300 px-4 py-2">John Doe</td>
+        <td className="border border-gray-300 px-4 py-2">1</td>
+        <td className="border border-gray-300 px-4 py-2">
+          <span className=" py-1 px-2 rounded-full text-xs">R2210112</span>
+        </td>
+        <td className="border border-gray-300 px-6 py-2">
+        Mr Sharma</td>
+        <td className="border border-gray-300 px-4 py-2"> Mrs Sharma</td>
+        <td className="border border-gray-300 px-4 py-2 text-green-500">
+         <button>View Details</button> 
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
             </div>
-        </div>
-        {/* TABLE START */}
-        <div className="relative overflow-x-auto pb-4 bg-gray-500 px-7 ">
-      <table className="w-full text-sm text-left rtl:text-right border rounded- text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-6 py-3 ">
-              Student Name <button className=""> 🔽 </button>
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Class  <button> 🔽 </button>
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Roll No  <button> 🔽 </button>
-            </th>
-            <th scope="col" className="px-6 py-3">
-              username  <button> 🔽 </button>
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Edit Details <button className="w-5 h-5"> 📝 </button>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              {formData.name}
-            </th>
-            <td className="px-6 py-4">{formData.class}</td>
-            <td className="px-6 py-4">{formData.roll}</td>
-            <td className="px-6 py-4">{formData.username}</td>
-            <button><td className="px-6 py-4 text-blue-300">Edit</td></button>
-          </tr>
-        </tbody>
-      </table>
-    </div>
         </>
     )
 }

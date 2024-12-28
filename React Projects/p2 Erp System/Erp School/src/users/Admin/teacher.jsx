@@ -1,167 +1,217 @@
+import axios from "axios";
 import SearchForm from "../../searchBar";
 import Nav from "./NavBar";
 import { useState } from "react";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 export default function CreateTeacher() {
-    const [formData, setFormData] = useState({
-        name: '',
-        roll: '',
-        password: '',
-        subject: '',
-        class: '',
-        email: ''
+  const [formData, setFormData] = useState({
+    name: "",
+    roll: "",
+    password: "",
+    subject: "",
+    class: "",
+    email: "",
+  });
+
+  const [teachers, setTeachers] = useState([]); 
+  const handleSuccess = () => {
+    Swal.fire("Success!", "Your Action has been completed", "success");
+  };
+  const handleDelete = () => {
+    Swal.fire("Delete Entry!", "Do You Want to delete this Entry", "error");
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
     });
+  };
 
-    const [teachers, setTeachers] = useState([]); // State to store teacher entries
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent page refresh
 
-    const handleSuccess = () => {
-        Swal.fire('Success!', 'Your Action has been completed', 'success');
-    };
+    // Add the current formData to the teachers array
+    setTeachers([...teachers, formData]);
+    handleSuccess(); // Show success popup
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
+    // Reset the formData to clear the form inputs
+    setFormData({
+      name: "",
+      id: "",
+      password: "",
+      subject: "",
+      class: "",
+      email: "",
+    });
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent page refresh
+  const [isOpen, setIsOpen] = useState(false);
 
-        // Add the current formData to the teachers array
-        setTeachers([...teachers, formData]);
-        handleSuccess(); // Show success popup
-
-        // Reset the formData to clear the form inputs
-        setFormData({
-            name: '',
-            id: '',
-            password: '',
-            subject: '',
-            class: '',
-            email: ''
-        });
-    };
-
-    return (
-        <>
-            <Nav />
-            <div className="bg-gray-500 w-full h-full p-10 flex flex-col items-center">
-                <h1 className="text-white font-extrabold font-serif text-5xl">
-                Welcome To Teacher Section
-                </h1>
-                <form onSubmit={handleSubmit} className="flex items-center m-10">
-                    <div className="flex flex-col border-2 border-black  bg-blue-200 h-full items-center m-10 w-52 rounded-lg px-1">
-                        <h1 className="font-bold text-lg font-serif rounded-sm">
-                            Add New Teacher
-                        </h1>
-                        <br />
-                        <label className="font-extrabold">Name:</label>
-                        <input
-                            className="border-2 border-gray-600 rounded-md px-1"
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            placeholder="Enter name"
-                            onChange={handleChange}
-                            required
-                        />
-                        <label className="mt-3 pt-2 font-serif font-extrabold">Subject:</label>
-                        <input
-                            className="border-2 border-gray-600 rounded-md px-1"
-                            type="text"
-                            name="subject"
-                            value={formData.subject}
-                            placeholder="Enter subject"
-                            onChange={handleChange}
-                            required
-                        />
-                        <label className="mt-3 pt-2 font-serif font-extrabold">Class:</label>
-                        <input
-                            className="border-2 border-gray-600 rounded-md px-1"
-                            type="text"
-                            name="class"
-                            value={formData.class}
-                            placeholder="Enter class"
-                            onChange={handleChange}
-                            required
-                        />
-                        <label className="mt-3 pt-2 font-serif font-extrabold">Teacher ID:</label>
-                        <input
-                            className="border-2 border-gray-600 rounded-md px-1"
-                            type="text"
-                            name="roll"
-                            value={formData.id}
-                            placeholder="Roll Number"
-                            onChange={handleChange}
-                            required
-                        />
-                        <label className="mt-3 pt-2 font-serif font-extrabold">Email:</label>
-                        <input
-                            className="border-2 border-gray-600 rounded-md px-1"
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            placeholder="example.com"
-                            onChange={handleChange}
-                            required
-                        />
-                        <label className="mt-3 pt-2 font-serif font-extrabold">Password:</label>
-                        <input
-                            className="border-2 border-gray-600 rounded-md px-1"
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            placeholder="Password"
-                            onChange={handleChange}
-                            required
-                        />
-                        <button
-                            type="submit"
-                            className="border border-solid bg-black text-white rounded-md m-5 px-7 font-serif"
-                        >
-                            Register
-                        </button>
-                    </div>
-                </form>
-                <div className="mt-2 w-full">
-                    <SearchForm />
+  const openDialog = () => setIsOpen(true);
+  const closeDialog = () => setIsOpen(false);
+  return (
+    <>
+      <div className=" flex flex-row  bg-gray-500 border rounded-lg border-gray-400 ">
+        <h1 className="font-bold m-2 h-24 text-3xl w-full text-white shadow-red-800   rounded-md">
+          Manage Employee
+        </h1>
+        <button
+          onClick={openDialog}
+          className=" bg-zinc-900 m-2  h-full w-36 px-1 border-2 align-baseline  text-white rounded-md"
+        >
+          + Create New
+        </button>
+        {isOpen && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-2 rounded shadow-lg max-w-md w-72">
+              <h2 className="text-xl font-bold mb-4">Create Employee</h2>
+              <div className="flex flex-row  justify-between gap-20 border bg-gray-700 rounded-lg w-px h-10 mb-5">
+                <div className="flex flex-row justify-between">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-12"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m.75 12 3 3m0 0 3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+                    />
+                  </svg>  
+                  <p>Import Data</p>
                 </div>
+                <div className="flex flex-row">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-12"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m6.75 12-3-3m0 0-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+                    />
+                  </svg>
+                  <p>Export Template</p>
+                </div>
+              </div>
+              <div className="mt-4 flex   justify-between">
+                <button
+                  onClick={handleSuccess}
+                  className="px-1 mx-5 py-1 bg-green-500 text-white rounded hover:bg-green-700"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={closeDialog}
+                  className="px-1 py-1 bg-red-500 text-white rounded hover:bg-red-700"
+                >
+                  Close
+                </button>
+              </div>
             </div>
-            {/* TABLE START */}
-            <div className="relative overflow-x-auto mt-0">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" className="px-6 py-3">Name</th>
-                            <th scope="col" className="px-6 py-3">Class</th>
-                            <th scope="col" className="px-6 py-3">Teacher Id</th>
-                            <th scope="col" className="px-6 py-3">Email</th>
-                            <th scope="col" className="px-6 py-3">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {teachers.map((teacher, index) => (
-                            <tr
-                                key={index}
-                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                            >
-                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {teacher.name}
-                                </td>
-                                <td className="px-6 py-4">{teacher.class}</td>
-                                <td className="px-6 py-4">{teacher.id}</td>
-                                <td className="px-6 py-4">{teacher.email}</td>
-                                <td className="px-6 py-4 text-blue-300 cursor-pointer">
-                                    Edit
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+          </div>
+        )}
+      </div>
+      <div className="flex flex-col mt-4 justify-center items-center  rounded-sm  border-gray-300 w-full h-fit p-1 ">
+        <form action="">
+          <div className=" flex flex-row bg-gray-500 rounded-md mb-6  p-3 justify-between  border-2 ">
+            <div className=" space-x-2">
+              <label htmlFor="" className=" font-semibold  text-black text-xl">
+                Employee Id:{" "}
+              </label>
+              <input
+                type="number"
+                className=" bolder-1 border-gray-200 rounded-md"
+              />
             </div>
-        </>
-    );
+            <div className=" space-x-2">
+              <label className="font-semibold  text-black text-xl">
+                Employee Name:{" "}
+              </label>
+              <input
+                type="text"
+                className=" text-center bolder-1 border-gray-500 rounded-md"
+              />
+            </div>
+            <div className="space-x-2">
+              <label className="font-semibold  text-black text-xl">
+                Qualifications :{" "}
+              </label>
+              <input
+                type="text"
+                className=" bolder-1 border-gray-500 rounded-md"
+              />
+            </div>
+            <div className=" space-x-2">
+              <label className="font-semibold  text-black text-xl">
+                Role :{" "}
+              </label>
+              {/* <input type="text" className=" bolder-1 border-gray-500 rounded-md" />     */}
+              <select
+                name=""
+                id=""
+                className=" bolder-1 text-black font-bold px-6 border-gray-500 rounded-md"
+              >
+                <option value="">Teacher</option>
+                <option value="selected">Admin</option>
+                <option value="">Principal</option>
+              </select>
+            </div>
+            <div>
+              <button className="border m-5 bg-black mt-5 w-28 p-1 text-white rounded-md  font-bold">
+                Get Employee
+              </button>
+            </div>
+          </div>
+        </form>
+        <div className="w-full   ">
+          <table className="table-auto  border-collapse border rounded-lg  w-full bg-white">
+            <thead className="bg-gray-200">
+              <tr>
+                <th className="border border-gray-300 px-4 py-2">Name</th>
+                <th className="border border-gray-300 px-4 py-2">EmployeeID</th>
+                <th className="border border-gray-300 px-4 py-2">Status</th>
+                <th className="border border-gray-300 px-4 py-2">Role</th>
+                <th className="border border-gray-300 px-4 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="hover:bg-gray-100">
+                <td className="border border-gray-300 px-4 py-2">John Doe</td>
+                <td className="border border-gray-300 px-4 py-2">
+                  john@example.com
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  <span className="bg-green-200 text-green-600 py-1 px-2 rounded-full text-xs">
+                    Active
+                  </span>
+                </td>
+                <td className="border border-gray-300 px-6 py-2">
+                  <button className="text-blue-500 hover:underline">
+                    Edit
+                  </button>
+                  <button 
+                  onClick={handleDelete}
+                  className="text-red-500 hover:underline ml-4">
+                    Delete
+                  </button>
+                </td>
+                <td className="border border-gray-300 px-4 py-2"> Teacher</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
+  );
 }

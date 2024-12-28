@@ -38,7 +38,6 @@ function NoticeSection() {
 
   return (
     <>
-    <Nav />
     <Banner name = "Monday Holiday" value = {notices.length > 0 ? notices[0].text : "No notices yet"} />
     <div className="p-10 pb-32  bg-gray-500 rounded-lg shadow-lg">
       <h2 className="text-2xl font-semibold mb-4">Admin Notices</h2>

@@ -36,8 +36,7 @@ export default function AddSubject() {
 
     return (
         <>
-            <Nav />
-            <div className="bg-gray-500 w-full h-full p-10 pb-2 flex flex-col items-center">
+            <div className="bg-gray-500 w-full h-auto p-10 pb-2 flex flex-col items-center">
                 <label className="font-serif font-extrabold text-3xl text-white">
                     Create Your Subject Here !!
                 </label>
