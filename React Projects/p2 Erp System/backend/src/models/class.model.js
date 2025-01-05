@@ -1,4 +1,3 @@
-import { response } from "express";
 import mongoose from "mongoose";
 const classSchema = new mongoose.Schema({
     name: { type: String, required: true }, // Example: "10th Grade"

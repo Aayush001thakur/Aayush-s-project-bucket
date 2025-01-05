@@ -6,7 +6,7 @@ import AnalticCards from "./Analytic";
       return(
       <>
       <div className="flex ">
-         <h1 className="text-bold flex items-center justify-center text-black">Hello World </h1>
+        <AnalticCards />
       </div>
       </>
       

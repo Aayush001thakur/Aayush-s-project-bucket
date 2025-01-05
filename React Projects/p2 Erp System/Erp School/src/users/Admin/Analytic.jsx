@@ -2,7 +2,7 @@
  
     return (
         <>
-          <div className="flex flex-row gap-13 items-center space-x-20">
+          <div className="flex m-10  justify-between items-center space-x-20">
             <div className="flex flex-col mt-4 gap-3 h-10 p-4 w-1/4">
               <img
                 className="w-59 h-50 border rounded-md border-cyan-600 object-cover"
@@ -25,7 +25,7 @@
                 src="https://images.all-free-download.com/images/graphiclarge/payment_design_elements_dollar_key_3d_sketch_6922240.jpg"
                 alt="Fee"
               />
-              <button className="border rounded-md border-black bg-gray-400 p-1 flex items-center font-extrabold justify-center"> Overall Fee Collected</button>
+              <button className="border rounded-md border-black bg-gray-400 p-1 flex items-center font-extrabold justify-center"> Overall Fee</button>
             </div>
             <div className="flex flex-col mt-4 gap-3 h-10 p-4 w-1/4">
               <img

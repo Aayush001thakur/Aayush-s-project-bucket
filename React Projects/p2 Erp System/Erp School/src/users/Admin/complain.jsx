@@ -1,7 +1,4 @@
 import React from "react";
-import Nav from "./NavBar";
-import Banner from "../../pages/Banner";
-
 function ToolbarButton({ children, ariaLabel }) {
   return (
     <button

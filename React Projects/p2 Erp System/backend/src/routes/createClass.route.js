@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { registerUser } from "../controllers/student.controller.js";
-
-const router = Router()
-
-router.route("/register").post(registerUser)
+import {CreateClass , FetchClass} from "../controllers/CreateClass.controller.js";
 
 
-export default router
+const Classroute = Router()
+
+Classroute.route('/createClass').post(CreateClass);
+Classroute.route('/getClass').get(FetchClass);
+
+
+export default Classroute
