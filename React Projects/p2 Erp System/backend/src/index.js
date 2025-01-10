@@ -5,6 +5,7 @@ import UserRouter from './routes/student.routes.js';
 import teacherRoute from "./routes/teacher.routes.js";
 import employeeRoute from "./routes/employee.route.js";
 import Classroute from "./routes/createClass.route.js";
+import studentrouter from "./routes/student.routes.js";
 import cors from 'cors';
 import cookieParser from "cookie-parser";
 
@@ -30,6 +31,7 @@ app.use("/api/v1/user", UserRouter); // For student-related routes
 app.use("/api/v1/teacher", teacherRoute); // For teacher-related routes
 app.use("/api/v1/employee", employeeRoute); // For employee-related routes
 app.use("/api/v1/class", Classroute);
+app.use("/api/v1/student" , studentrouter)
 // Connect to the database
 connectDB();
 

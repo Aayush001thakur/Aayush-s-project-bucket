@@ -1,13 +1,14 @@
 import { Router } from "express";
-import { loginUser, logoutUser, registerUser } from "../controllers/student.controller.js";
+import { getAllStudent, loginUser, logoutUser, registerUser } from "../controllers/student.controller.js";
 import { verfiyJwt } from "../middlewares/auth.middleware.js";
 import { refreshAcessToken } from "../controllers/student.controller.js";
-const router = Router()
+const studentrouter = Router()
 
-router.route("/register").post(registerUser)
-router.route("/login").post(loginUser)
+studentrouter.route("/register").post(registerUser)
+studentrouter.route("/login").post(loginUser)
+studentrouter.route("/students").get(getAllStudent)
 
 // Secured Routes
-router.route("/logout").post(verfiyJwt, logoutUser)
-router.route("/refresh-token").post(refreshAcessToken)
-export default router
+studentrouter.route("/logout").post(verfiyJwt, logoutUser)
+studentrouter.route("/refresh-token").post(refreshAcessToken)
+export default studentrouter

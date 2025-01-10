@@ -175,7 +175,23 @@ const changeUserPassword = asyncHandler(async(req, res) =>{
     .json(new Apiresponse(200, {}, "Password Changed Sucessfully"))
 })
 
+const getAllStudent = asyncHandler(async (req , res) => {
+    try {
+         const students = await Student.find();
+                res.status(200).json({
+                    success: true,
+                    data: students,
+                });
+    } catch (error) {
+        res.status(404).json({
+            success: false,
+            message: "Failed to fetch Students",
+            error: error.message,
+        });
+    }
+})
+
 export 
 {
-    registerUser , loginUser , logoutUser, refreshAcessToken
+    registerUser , loginUser , logoutUser, refreshAcessToken , getAllStudent
 }
