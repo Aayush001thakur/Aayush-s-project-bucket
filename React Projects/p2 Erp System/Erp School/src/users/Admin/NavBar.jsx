@@ -61,7 +61,7 @@ export default function Sidebar() {
       </div>
 
       {/* Toggle Switch */}
-      <div className="absolute flex flex-col gap-10 justify-evenly top-4 left-4 z-50">
+      <div className="fixed flex flex-col gap-10 justify-evenly top-4 left-4 z-50">
         <div>
           <Switch
             checked={isOpen}
@@ -88,7 +88,8 @@ export default function Sidebar() {
         }`}
       >
         <div className={`p-4 flex-row   min-h-screen ${open ? "bg-amber-300": "bg-gray-400" }`}>
-          {open && (
+        <div className={`m-2`}>
+        {open && (
             <div className="my-9 mx-5">
               <button onClick={ThemeSwitcher}>
                 <svg
@@ -107,7 +108,7 @@ export default function Sidebar() {
             </div>
           )}
           {!open && (
-            <div className=" my-9 mx-5">
+            <div className="m-5">
               <button onClick={ThemeSwitcher}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -119,10 +120,9 @@ export default function Sidebar() {
                 </svg>
               </button>
             </div>
-          )}
-          <div className={`m-7`}>
-            <Outlet />
-          </div>
+          )} 
+          <Outlet />
+          </div>       
         </div>
       </div>
     </div>

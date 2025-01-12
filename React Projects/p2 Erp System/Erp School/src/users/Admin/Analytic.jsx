@@ -43,7 +43,7 @@ const getStudentData =  async() =>{
   return (
     <>
       <div className="flex flex-row border-2 gap-5 rounded-lg border-gray-800 bg-gray-300 w-fit p-5 justify-stretch  items-center">
-        <div className="flex flex-col  border-2 p-2 bg-stone-700 border-gray-900">
+        <div className="flex flex-col  border-2 p-2 rounded-md bg-stone-700 border-gray-900">
           <button onClick={getclassdata}>
             <h1 className="font-bold text-5xl text-white  rounded-full">
               {classdataLen}{" "}
@@ -51,7 +51,7 @@ const getStudentData =  async() =>{
           </button>
           <span className="text-white font-bold text-5xl">Classes</span>
         </div>
-        <div className="flex flex-col  border-2 p-2 bg-stone-700 border-gray-900">
+        <div className="flex flex-col  border-2 p-2 rounded-md bg-stone-700 border-gray-900">
           <button onClick={getemployeedata}>
             <h1 className="font-bold text-5xl text-white  rounded-full">
               {employeedataLen}{" "}
@@ -59,7 +59,7 @@ const getStudentData =  async() =>{
           </button>
           <span className="text-white font-bold text-5xl">Employee</span>
         </div>
-        <div className="flex flex-col  border-2 p-2 bg-stone-700 border-gray-900">
+        <div className="flex flex-col  border-2 p-2 rounded-md bg-stone-700 border-gray-900">
           <button onClick={getStudentData}>
             <h1 className="font-bold text-5xl text-white  rounded-full">
               {studentdataLen}{" "}

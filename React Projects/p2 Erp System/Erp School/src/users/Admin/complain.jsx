@@ -1,61 +1,164 @@
 import React from "react";
-function ToolbarButton({ children, ariaLabel }) {
-  return (
-    <button
-      type="button"
-      className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
-      aria-label={ariaLabel}
-    >
-      {children}
-    </button>
-  );
-}
 
-function FormComponent() {
+function ComplaintSection() {
+  // Sample data for complaints
+  const complaints = [
+    {
+      id: 1,
+      category: "Student",
+      description: "Student A is bullying Student B.",
+      status: "Pending",
+    },
+    {
+      id: 2,
+      category: "Teacher",
+      description: "Teacher X is frequently absent from classes.",
+      status: "In Progress",
+    },
+    {
+      id: 3,
+      category: "Infrastructure",
+      description: "AC in Room 205 is not working.",
+      status: "Resolved",
+    },
+  ];
+
   return (
     <>
-    <div
-    className="bg-slate-700  w-full h-24 flex items-center text-white font-serif text-3xl font-extrabold " 
-    >
-        <h1
-        className=" flex items-center justify-center p-5 "
-        >Manage Complains by Student and teachers</h1>
+      {/* Header Section */}
+      <div className="bg-slate-700 w-full border rounded-lg h-24 flex items-center text-white font-serif text-3xl font-extrabold">
+        <h1 className="flex items-center justify-center p-5">
+          Admin Complaint Management
+        </h1>
       </div>
-<form>
-   <div className="w-1/2 ml-8 h-full mt-32 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-       <div className="px-2 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-           <label  className="sr-only">Your comment</label>
-           <textarea id="comment" rows="4" className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required ></textarea>
-       </div>
-       <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-           <button type="submit" className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-               Post complaint
-           </button>
-           <div className="flex ps-0 space-x-1 rtl:space-x-reverse sm:ps-2">
-               <button type="button" className="inline-flex justify-center items-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
-                   <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 20">
-                        <path d="M1 6v8a5 5 0 1 0 10 0V4.5a3.5 3.5 0 1 0-7 0V13a2 2 0 0 0 4 0V6"/>
-                    </svg>
-                   <span className="sr-only">Attach file</span>
-               </button>
-               <button type="button" className="inline-flex justify-center items-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
-                   <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
-                        <path d="M8 0a7.992 7.992 0 0 0-6.583 12.535 1 1 0 0 0 .12.183l.12.146c.112.145.227.285.326.4l5.245 6.374a1 1 0 0 0 1.545-.003l5.092-6.205c.206-.222.4-.455.578-.7l.127-.155a.934.934 0 0 0 .122-.192A8.001 8.001 0 0 0 8 0Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
-                    </svg>
-                   <span className="sr-only">Set location</span>
-               </button>
-               <button type="button" className="inline-flex justify-center items-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
-                   <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                        <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
-                    </svg>
-                   <span className="sr-only">Upload image</span>
-               </button>
-           </div>
-       </div>
-   </div>
-</form>
 
+      {/* Complaint Form */}
+      <form className="w-full mt-10">
+        <div className="border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+          {/* Form Header */}
+          <div className="px-4 py-3 bg-gray-200 rounded-t-lg dark:bg-gray-800">
+            <h2 className="text-lg font-bold text-gray-700 dark:text-gray-200">
+              Register Complaint
+            </h2>
+          </div>
+
+          {/* Complaint Details */}
+          <div className="px-4 py-4 bg-white dark:bg-gray-800">
+            <label
+              htmlFor="category"
+              className="block text-xl font-bold text-gray-700 dark:text-gray-400"
+            >
+              Complaint Category
+            </label>
+            <select
+              id="category"
+              className="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+              required
+            >
+              <option value="">Select a category</option>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+              <option value="infrastructure">Infrastructure</option>
+              <option value="other">Other</option>
+            </select>
+
+            <label
+              htmlFor="description"
+              className="block mt-4 text-xl font-bold text-white dark:text-gray-400"
+            >
+              Complaint Description
+            </label>
+            <textarea
+              id="description"
+              rows="4"
+              className="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Describe the complaint..."
+              required
+            ></textarea>
+          </div>
+
+          {/* Status and Submit */}
+          <div className="flex items-center justify-between px-4 py-3 border rounded-lg bg-gray-100 border-t dark:bg-gray-800 dark:border-gray-600">
+            <div className="flex items-center">
+              <label
+                htmlFor="status"
+                className="text-sm font-bold text-gray-700 dark:text-gray-400"
+              >
+                Status:
+              </label>
+              <select
+                id="status"
+                className="ml-2 block w-32 rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+              >
+                <option value="pending">Pending</option>
+                <option value="in-progress">In Progress</option>
+                <option value="resolved">Resolved</option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
+            >
+              Submit Complaint
+            </button>
+          </div>
+        </div>
+      </form>
+
+      {/* Complaints Table */}
+      <div className="max-w-6xl mx-auto mt-10">
+        <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200 mb-4">
+          Complaints List
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="bg-gray-200 text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-4 py-3">
+                  ID
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Category
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Description
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Status
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {complaints.map((complaint) => (
+                <tr
+                  key={complaint.id}
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <td className="px-4 py-2">{complaint.id}</td>
+                  <td className="px-4 py-2">{complaint.category}</td>
+                  <td className="px-4 py-2">{complaint.description}</td>
+                  <td className="px-4 py-2">{complaint.status}</td>
+                  <td className="px-4 py-2">
+                    <button className="text-blue-600 hover:underline dark:text-blue-400">
+                      Edit
+                    </button>{" "}
+                    |{" "}
+                    <button className="text-red-600 hover:underline dark:text-red-400">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </>
   );
 }
-export default FormComponent;
+
+export default ComplaintSection;
