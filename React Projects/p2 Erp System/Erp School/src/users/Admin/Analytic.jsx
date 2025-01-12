@@ -1,43 +1,73 @@
- export default function AnalticCards(){
- 
-    return (
-        <>
-          <div className="flex m-10  justify-between items-center space-x-20">
-            <div className="flex flex-col mt-4 gap-3 h-10 p-4 w-1/4">
-              <img
-                className="w-59 h-50 border rounded-md border-cyan-600 object-cover"
-                src="https://img.freepik.com/premium-vector/student-graduation-school-set-elements-design_24877-44158.jpg"
-                alt="Student"
-              />  
-              <button className="border rounded-md bg-gray-400 border-black p-1 flex items-center font-extrabold justify-center"> Total Students</button>
-            </div>
-            <div className="flex flex-col mt-4 gap-3 h-10 p-4 w-1/4">
-              <img
-                className="w-59 h-50 border rounded-md border-cyan-600 object-cover"
-                src="https://i.pinimg.com/736x/11/f9/b5/11f9b55a05f2820b6359fbe9b638b081.jpg"
-                alt="Teacher"
-              />
-              <button className="border rounded-md border-black bg-gray-400 p-1 flex items-center font-extrabold justify-center"> Total Teachers</button>
-            </div>
-            <div className="flex flex-col mt-4 gap-3 h-10 p-4 w-1/4">
-              <img
-                className="w-59 h-50 border rounded-md border-cyan-600 object-cover"
-                src="https://images.all-free-download.com/images/graphiclarge/payment_design_elements_dollar_key_3d_sketch_6922240.jpg"
-                alt="Fee"
-              />
-              <button className="border rounded-md border-black bg-gray-400 p-1 flex items-center font-extrabold justify-center"> Overall Fee</button>
-            </div>
-            <div className="flex flex-col mt-4 gap-3 h-10 p-4 w-1/4">
-              <img
-                className="w-59 h-50 border rounded-md border-cyan-600 object-cover"
-                src="https://c8.alamy.com/comp/2E2MA22/exam-outline-vector-icon-thin-line-black-exam-icon-flat-vector-simple-element-illustration-from-editable-education-concept-isolated-on-white-backgro-2E2MA22.jpg"
-                alt="Exam"
-              />
-              <button className="border rounded-md border-black bg-gray-400 p-1 flex items-center font-extrabold justify-center">Total Classes</button>
-            </div>
-          </div>
-        </>
-      );
-      
+import { useState } from "react";
+import axios from "axios";
 
+export default function AnalticCards() {
+  const [classdataLen, setclassDataLen] = useState(0); // State to store the data length
+  const [employeedataLen, setemployeeDataLen] = useState(0);
+  const [studentdataLen, setstudentDataLen] = useState(0);
+  const getclassdata = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/v1/class/getClass"
+      );
+      const fetchedDataLen = response.data.data.length;
+      setclassDataLen(fetchedDataLen); // Update the state with the data length
+    } catch (error) {
+      console.log("Failed to fetch data", error);
+    }
+  };
+  const getemployeedata = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/v1/employee/employees"
+      );
+      const fetchStudent = response.data.data.length;
+      setemployeeDataLen(fetchStudent); // Update the state with the data length
+    } catch (error) {
+      console.log("Failed to fetch data", error);
+    }
+  };
+
+const getStudentData =  async() =>{
+  try {
+    const response = await axios.get('http://localhost:4000/api/v1/student/students');
+    const fetchstudentDataLen = response.data.data.length;
+    console.log(response.data.data.length);
+    setstudentDataLen(fetchstudentDataLen);
+  } catch (error) {
+    
+  }
+}
+
+
+  return (
+    <>
+      <div className="flex flex-row border-2 gap-5 rounded-lg border-gray-800 bg-gray-300 w-fit p-5 justify-stretch  items-center">
+        <div className="flex flex-col  border-2 p-2 bg-stone-700 border-gray-900">
+          <button onClick={getclassdata}>
+            <h1 className="font-bold text-5xl text-white  rounded-full">
+              {classdataLen}{" "}
+            </h1>
+          </button>
+          <span className="text-white font-bold text-5xl">Classes</span>
+        </div>
+        <div className="flex flex-col  border-2 p-2 bg-stone-700 border-gray-900">
+          <button onClick={getemployeedata}>
+            <h1 className="font-bold text-5xl text-white  rounded-full">
+              {employeedataLen}{" "}
+            </h1>
+          </button>
+          <span className="text-white font-bold text-5xl">Employee</span>
+        </div>
+        <div className="flex flex-col  border-2 p-2 bg-stone-700 border-gray-900">
+          <button onClick={getStudentData}>
+            <h1 className="font-bold text-5xl text-white  rounded-full">
+              {studentdataLen}{" "}
+            </h1>
+          </button>
+          <span className="text-white font-bold text-5xl">Student</span>
+        </div>
+      </div>
+    </>
+  );
 }
