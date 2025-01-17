@@ -1,20 +1,33 @@
-import { Switch, Transition } from "@headlessui/react";
+import { Switch } from "@headlessui/react";
 import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 const navigation = [
-  { name: "Dashboard", href: "/admin/dash", current: false },
-  { name: "Classes", href: "/admin/class", current: false },
-  { name: "Employee", href: "/admin/teacher", current: false },
-  { name: "Student", href: "/admin/student", current: false },
-  { name: "Subjects", href: "/admin/subject", current: false },
-  { name: "Complaints", href: "/admin/complain", current: false },
-  { name: "Notice", href: "/admin/notice", current: false },
+  { name: "Dashboard", href: "/admin/dash", current: false, subItems: [] },
+  ,
+  {
+    name: "Management",
+    href: "/admin/teacher",
+    current: false,
+    subItems: [
+      { name: "Employee", href: "/admin/teacher" },
+      { name: "Student", href: "/admin/student" },
+      { name: "Subjects", href: "/admin/subject" },
+      {
+        name: "Classes",
+        href: "/admin/class",
+      },
+    ],
+  },
+  ,
+  { name: "Grevience", href: "/admin/complain", current: false, subItems: [] },
+  { name: "Notice", href: "/admin/notice", current: false, subItems: [] },
 ];
 
 export default function Sidebar() {
   const [activeTab, setActiveTab] = useState(navigation[0].href);
   const [isOpen, setIsOpen] = useState(false);
+  const [openSections, setOpenSections] = useState([]);
   const navigate = useNavigate();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
@@ -24,17 +37,20 @@ export default function Sidebar() {
     navigate(href);
   };
 
-  const [open, setOpen] = useState(true);
-  const ThemeSwitcher = (event) => {
-    event.preventDefault();
-    setOpen(!open);
+  const handleAccordionToggle = (name, e) => {
+    e.stopPropagation(); // Prevent event propagation to avoid navigation
+    setOpenSections((prev) =>
+      prev.includes(name)
+        ? prev.filter((section) => section !== name)
+        : [...prev, name]
+    );
   };
 
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full bg-gray-800 text-white transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full bg-zinc-600 text-white transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } w-64`}
       >
@@ -46,15 +62,65 @@ export default function Sidebar() {
           />
           <ul className="mt-6 w-full px-4">
             {navigation.map((item, index) => (
-              <li
-                key={index}
-                onClick={() => handleTabClick(item.href)}
-                className={`py-3 px-4 rounded-md text-center cursor-pointer ${
-                  activeTab === item.href ? "bg-gray-700" : "hover:bg-gray-600"
-                }`}
-              >
-                {item.name}
-              </li>
+              <div key={index}>
+                {/* Main Item */}
+                <li
+                  onClick={() => handleTabClick(item.href)} // Navigate on main item click
+                  className={`py-3 px-4 rounded-md text-black font-bold text-center cursor-pointer ${
+                    activeTab === item.href
+                      ? "bg-[#1096e3]"
+                      : "hover:bg-[#1096e3]"
+                  }`}
+                >
+                  {item.name}
+                  {item.subItems.length > 0 && (
+                    <button
+                      onClick={(e) => handleAccordionToggle(item.name, e)} // Toggle accordion on button click
+                      className={`h-4 w-4 transition-transform duration-300 transform ml-2 ${
+                        openSections.includes(item.name)
+                          ? "rotate-180"
+                          : "rotate-0"
+                      }`}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        className="w-5 h-5"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm.75-11.25a.75.75 0 0 0-1.5 0v4.59L7.3 9.24a.75.75 0 0 0-1.1 1.02l3.25 3.5a.75.75 0 0 0 1.1 0l3.25-3.5a.75.75 0 1 0-1.1-1.02l-1.95 2.1V6.75Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  )}
+                </li>
+
+                {/* Accordion Sub-items */}
+                {item.subItems.length > 0 &&
+                  openSections.includes(item.name) && (
+                    <div
+                      className="pl-4 transition-all duration-300 overflow-hidden"
+                      style={{
+                        maxHeight: openSections.includes(item.name)
+                          ? "1000px"
+                          : "0",
+                      }}
+                    >
+                      {item.subItems.map((subItem, subIndex) => (
+                        <li
+                          key={subIndex}
+                          onClick={() => handleTabClick(subItem.href)} // Navigate on sub-item click
+                          className={`py-2 px-4 rounded-md text-center text-black cursor-pointer hover:bg-zinc-700`}
+                        >
+                          {subItem.name}
+                        </li>
+                      ))}
+                    </div>
+                  )}
+              </div>
             ))}
           </ul>
         </div>
@@ -87,42 +153,8 @@ export default function Sidebar() {
           isOpen ? "ml-64" : "ml-0"
         }`}
       >
-        <div className={`p-4 flex-row   min-h-screen ${open ? "bg-amber-300": "bg-gray-400" }`}>
-        <div className={`m-2`}>
-        {open && (
-            <div className="my-9 mx-5">
-              <button onClick={ThemeSwitcher}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="black"
-                  className="size-5"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M7.455 2.004a.75.75 0 0 1 .26.77 7 7 0 0 0 9.958 7.967.75.75 0 0 1 1.067.853A8.5 8.5 0 1 1 6.647 1.921a.75.75 0 0 1 .808.083Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
-          )}
-          {!open && (
-            <div className="m-5">
-              <button onClick={ThemeSwitcher}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  class="size-5"
-                >
-                  <path d="M10 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 2ZM10 15a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 15ZM10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM15.657 5.404a.75.75 0 1 0-1.06-1.06l-1.061 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM6.464 14.596a.75.75 0 1 0-1.06-1.06l-1.06 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM18 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 18 10ZM5 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 5 10ZM14.596 15.657a.75.75 0 0 0 1.06-1.06l-1.06-1.061a.75.75 0 1 0-1.06 1.06l1.06 1.06ZM5.404 6.464a.75.75 0 0 0 1.06-1.06l-1.06-1.06a.75.75 0 1 0-1.061 1.06l1.06 1.06Z" />
-                </svg>
-              </button>
-            </div>
-          )} 
+        <div className="p-4 flex-row min-h-screen bg-zinc-900">
           <Outlet />
-          </div>       
         </div>
       </div>
     </div>
