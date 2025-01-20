@@ -162,8 +162,8 @@ const createEmployee =  async () =>{
       </div>
       <SearchForm />
       <div className="flex flex-col mt-4 justify-center items-center rounded-sm border-gray-500 w-full h-fit p-1">
-        <table className="table-auto border-collapse border rounded-lg w-full bg-white">
-          <thead className="bg-gray-200">
+        <table className="table-auto border-collapse border rounded-lg w-full bg-black text-white">
+          <thead className="bg-gradient-to-r from-[#7899b0] to-bg-[#00d4ff]">
             <tr>
               <th className="border border-gray-300 px-4 py-2">S.No</th>
               <th className="border border-gray-300 px-4 py-2">Name</th>
@@ -176,7 +176,7 @@ const createEmployee =  async () =>{
           </thead>
           <tbody>
             {teachers.map((teacher , index) => (
-              <tr key={teacher.id} className="hover:bg-gray-100">
+              <tr key={teacher.id} >
                 <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
                 <td className="border border-gray-300 px-4 py-2">{teacher.name}</td>
                 <td className="border border-gray-300 px-4 py-2">{teacher.employeeId}</td>

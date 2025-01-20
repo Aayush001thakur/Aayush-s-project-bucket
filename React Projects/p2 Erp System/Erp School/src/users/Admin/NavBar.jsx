@@ -50,9 +50,9 @@ export default function Sidebar() {
     <div className="flex h-screen">
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full bg-zinc-600 text-white transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full bg-[#4D44B5] text-white transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } w-64`}
+        } w-60`}
       >
         <div className="flex flex-col items-center pt-6">
           <img
@@ -66,10 +66,10 @@ export default function Sidebar() {
                 {/* Main Item */}
                 <li
                   onClick={() => handleTabClick(item.href)} // Navigate on main item click
-                  className={`py-3 px-4 rounded-md text-black font-bold text-center cursor-pointer ${
+                  className={`py-3 px-4 rounded-t-md text-[#fff] font-bold text-center cursor-pointer ${
                     activeTab === item.href
-                      ? "bg-[#1096e3]"
-                      : "hover:bg-[#1096e3]"
+                      ? "bg-[#ffffff26]"
+                      : "hover:bg-[#ffffff26]"
                   }`}
                 >
                   {item.name}
@@ -89,9 +89,9 @@ export default function Sidebar() {
                         className="w-5 h-5"
                       >
                         <path
-                          fill-rule="evenodd"
+                          fillRule="evenodd"
                           d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm.75-11.25a.75.75 0 0 0-1.5 0v4.59L7.3 9.24a.75.75 0 0 0-1.1 1.02l3.25 3.5a.75.75 0 0 0 1.1 0l3.25-3.5a.75.75 0 1 0-1.1-1.02l-1.95 2.1V6.75Z"
-                          clip-rule="evenodd"
+                          clipRule="evenodd"
                         />
                       </svg>
                     </button>
@@ -99,61 +99,72 @@ export default function Sidebar() {
                 </li>
 
                 {/* Accordion Sub-items */}
-                {item.subItems.length > 0 &&
-                  openSections.includes(item.name) && (
-                    <div
-                      className="pl-4 transition-all duration-300 overflow-hidden"
-                      style={{
-                        maxHeight: openSections.includes(item.name)
-                          ? "1000px"
-                          : "0",
-                      }}
-                    >
-                      {item.subItems.map((subItem, subIndex) => (
-                        <li
-                          key={subIndex}
-                          onClick={() => handleTabClick(subItem.href)} // Navigate on sub-item click
-                          className={`py-2 px-4 rounded-md text-center text-black cursor-pointer hover:bg-zinc-700`}
-                        >
-                          {subItem.name}
-                        </li>
-                      ))}
-                    </div>
-                  )}
+                {item.subItems.length > 0 && (
+                  <div
+                    className={` transition-all duration-500 ease-out overflow-hidden`}
+                    style={{
+                      maxHeight: openSections.includes(item.name)
+                        ? "300px"
+                        : "0",
+                      opacity: openSections.includes(item.name) ? "1" : "0",
+                      backgroundColor: openSections.includes(item.name)
+                        ? "#2d3748"
+                        : "transparent", // Dark gray for contrast
+                      border: openSections.includes(item.name)
+                        ? "1px solid rgba(255, 255, 255, 0.2)"
+                        : "none",
+                      borderBottomLeftRadius: "8px", // Round bottom-left corner
+                      borderBottomRightRadius: "8px", // Round bottom-right corner
+                    }}
+                  >
+                    {item.subItems.map((subItem, subIndex) => (
+                      <li
+                        key={subIndex}
+                        onClick={() => handleTabClick(subItem.href)}
+                        className="py-2 m-1 text-center text-white cursor-pointer hover:bg-[#ffffff26]"
+                      >
+                        {subItem.name}
+                      </li>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </ul>
         </div>
-      </div>
 
-      {/* Toggle Switch */}
-      <div className="fixed flex flex-col gap-10 justify-evenly top-4 left-4 z-50">
-        <div>
-          <Switch
-            checked={isOpen}
-            onChange={toggleSidebar}
+        {/* Toggle Switch */}
+        <div className="absolute top-1/2 right-[-20px] transform -translate-y-1/2 flex items-center">
+          <button
+            onClick={toggleSidebar}
             aria-label="Toggle Sidebar"
-            className={`flex items-center h-7 w-14 rounded-full transition duration-300 ${
-              isOpen ? "bg-gray-700" : "bg-gray-300"
-            }`}
+            className="flex items-center justify-center h-10 w-10 bg-white rounded-full shadow-md transition-transform duration-300"
           >
-            <span
-              aria-hidden="true"
-              className={`h-5 w-5 rounded-full bg-white shadow transform transition ${
-                isOpen ? "translate-x-7" : "translate-x-0"
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className={`w-6 h-6 text-gray-800 transform transition-transform duration-300 ${
+                isOpen ? "rotate- [-90]" : "rotate-90"
               }`}
-            />
-          </Switch>
+            >
+              <path
+                fillRule="evenodd"
+                d="M12 3a1 1 0 0 1 .71.29l8 8a1 1 0 0 1-1.42 1.42L12 5.42l-7.29 7.29a1 1 0 1 1-1.42-1.42l8-8A1 1 0 0 1 12 3z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
         </div>
       </div>
 
       {/* Main Content */}
       <div
         className={`flex-1 ml-0 transition-all duration-300 ${
-          isOpen ? "ml-64" : "ml-0"
+          isOpen ? "ml-60" : "ml-0"
         }`}
       >
-        <div className="p-4 flex-row min-h-screen bg-zinc-900">
+        <div className="p-4  flex-row min-h-screen bg-black">
           <Outlet />
         </div>
       </div>

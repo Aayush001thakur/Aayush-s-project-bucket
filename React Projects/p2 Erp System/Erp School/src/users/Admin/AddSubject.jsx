@@ -37,13 +37,13 @@ export default function AddSubject() {
     return (
         <>
            <div className="flex flex-col w-full ">
-            <div className="m-3 font-bold text-white h-24  text-3xl p-4 rounded-lg shadow-md shadow-white border border-white bg-gray-500 "> Manage Subjects</div>
+            <div className="m-3 font-bold text-white h-24  text-3xl p-4 rounded-lg shadow-md shadow-white  bg-gray-500 "> Manage Subjects</div>
             <div className="mt-4 w-full" >
-            <table className="table-auto border-collapse border rounded-lg w-full bg-white">
-            <thead className="bg-gray-200 ">
+            <table className="table-auto border-collapse   w-full text-white bg-black">
+            <thead className="bg-gradient-to-r from-[#7899b0] to-bg-[#00d4ff] ">
               <tr>
                 <th className="border border-gray-300 px-4 py-2">Name</th>
-                <th className="border border-gray-300 px-4 py-2">Code</th>
+                <th className="border border-gray-300 px-4 py-2">Code</th>  
                 <th className="border border-gray-300 px-4 py-2">type</th>
                 <th className="border border-gray-300 px-4 py-2">Class</th>
                 <th className="border border-gray-300 px-4 py-2">Type</th>
@@ -51,7 +51,7 @@ export default function AddSubject() {
             </thead>
             <tbody>
               
-                <tr className="hover:bg-gray-100">
+                <tr className="">
                   <td className="border border-gray-300 px-4 py-2"> English</td>
                   <td className="border border-gray-300 px-4 py-2">001</td>
                   <td className="border border-gray-300 px-4 py-2">
